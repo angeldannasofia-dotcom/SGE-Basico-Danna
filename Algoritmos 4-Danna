@@ -1,0 +1,81 @@
+# ==========================================
+# Sistema de Gestión de Estudiantes (SGE)
+# Basado exactamente en el diagrama de flujo
+# ==========================================
+
+# 1. Inicializar lista, contador = 0 y banderaSalir = falso
+estudiantes = []
+contador = 0
+banderaSalir = False
+
+# Bucle principal del menú
+while not banderaSalir:
+    print("\n========================================")
+    print("      SISTEMA DE GESTIÓN (SGE)          ")
+    print("========================================")
+    print("1. Agregar")
+    print("2. Mostrar")
+    print("3. Buscar")
+    print("4. Salir")
+    
+    # Mostrar Menú y Leer Opción
+    opcion = input("Seleccione una opción (1-4): ")
+    
+    # ¿Qué opción eligió? (Estructura de decisión múltiple)
+    if opcion == "1":
+        # --- OPCIÓN 1: AGREGAR ---
+        print("\n--- AGREGAR ESTUDIANTE ---")
+        # Pedir nombre e ID del estudiante (ID es el número del estudiante)
+        id_estudiante = input("Ingrese el ID (número) del estudiante: ")
+        nombre_estudiante = input("Ingrese el nombre del estudiante: ")
+        
+        # Guardar datos en la lista e incrementar contador (contador++)
+        estudiante = {"id": id_estudiante, "nombre": nombre_estudiante}
+        estudiantes.append(estudiante)
+        contador += 1
+        print(f"¡Datos guardados con éxito! Total de registros: {contador}")
+        
+    elif opcion == "2":
+        # --- OPCIÓN 2: MOSTRAR ---
+        print("\n--- MOSTRAR LISTA DE ESTUDIANTES ---")
+        if len(estudiantes) == 0:
+            print("El sistema no tiene estudiantes registrados.")
+        else:
+            # Mostrar lista de estudiantes registrados
+            for est in estudiantes:
+                print(f"ID del estudiante: {est['id']} | Nombre: {est['nombre']}")
+            print(f"Total acumulado: {contador}")
+            
+    elif opcion == "3":
+        # --- OPCIÓN 3: BUSCAR ---
+        print("\n--- BUSCAR ESTUDIANTE ---")
+        if len(estudiantes) == 0:
+            print("No hay registros en la lista para buscar.")
+        else:
+            # Pedir ID del estudiante a buscar
+            id_buscar = input("Ingrese el ID del estudiante a buscar: ")
+            encontrado = False
+            estudiante_encontrado = None
+            
+            for est in estudiantes:
+                if est['id'] == id_buscar:
+                    encontrado = True
+                    estudiante_encontrado = est
+                    break
+            
+            # ¿Estudiante encontrado? (Rombo de decisión)
+            if encontrado:
+                # SÍ: Mostrar datos del estudiante
+                print(f"¡Estudiante encontrado! -> ID: {estudiante_encontrado['id']} | Nombre: {estudiante_encontrado['nombre']}")
+            else:
+                # NO: Mostrar "Estudiante no encontrado"
+                print("Estudiante no encontrado")
+                
+    elif opcion == "4":
+        # --- OPCIÓN 4: SALIR ---
+        # banderaSalir = verdadero
+        banderaSalir = True
+        print("\nSaliendo del sistema de gestión... ¡Fin!")
+        
+    else:
+        print("Opción inválida. Por favor, ingrese un número entre 1 y 4.")
